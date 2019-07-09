@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import { Search } from './Search';
 
 const links = [
   { href: 'https://github.com/segmentio/create-next-app', label: 'Github' }
@@ -10,10 +9,6 @@ const links = [
 })
 
 const Nav = () => (
-  <>
-  <div style={{ background: '#FFE600', height: '56px', display: 'flex' }}>
-    <Search name={'search'} value={'apple watch'} placeholder={'Nunca dejes de buscar'} />
-  </div>
   <nav>
     <ul>
       <li>
@@ -59,7 +54,6 @@ const Nav = () => (
       }
     `}</style>
   </nav>
-  </>
 )
 
 export default Nav
