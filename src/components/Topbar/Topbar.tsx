@@ -9,19 +9,24 @@ const TopbarContainer = ({ children }: any) => (
   </div>
 )
 
-const Search: React.FunctionComponent<any> = ({ value: initialValue }) => {
+const Search: React.FunctionComponent<any> = ({ value: initialValue, onClick, onEnter }) => {
   const [value, setValue] = useState(initialValue);
   return (
     <div style={{ width: '100%', position: 'relative', display: 'flex' }}>
-      <input style={{ color: '#333', fontSize: 18, padding: '7px', border: 'none', zIndex: 1, width: '100%', outline: 'none' }} value={value} onChange={({ target }) => setValue(target.value)} />
-      <button style={{ backgroundColor: '#EEE', border: 'none', outline: 'none', width: 46, right: 0, top: 0, zIndex: 2, cursor: 'pointer', bottom: 0, padding: 0 }}>
+      <input style={{ color: '#333', fontSize: 18, padding: '7px', border: 'none', zIndex: 1, width: '100%', outline: 'none' }} value={value} onChange={({ target }) => setValue(target.value)} onKeyDown={(evt) => {
+        const { keyCode } = evt;
+        if (keyCode === 13) {
+          onEnter(value);
+        }
+      }} />
+      <button style={{ backgroundColor: '#EEE', border: 'none', outline: 'none', width: 46, right: 0, top: 0, zIndex: 2, cursor: 'pointer', bottom: 0, padding: 0 }} onClick={() => onClick(value)}>
         <img src={'/static/icons/ic_search.png'} srcSet={'/static/icons/ic_search.png, /static/icons/ic_search@2x.png 2x'} />
       </button>
     </div>
   );
 };
 
-export const Topbar = ({ value }: any) => {
+export const Topbar = ({ value, onClick, onEnter }: any) => {
   return (
     <TopbarContainer>
       <Grid container={true} style={{ margin: 'auto', maxWidth: '1280px', width: '100%' }} alignItems={'center'} spacing={2}>
@@ -30,7 +35,7 @@ export const Topbar = ({ value }: any) => {
         </Grid>
 
         <Grid xs={9} item={true}>
-          <Search name={'searchable'} value={value} style={{ width:'100%',outline: 'none', padding: 5, fontSize: 18 }} onEnter={console.log.bind(null, 'go go')} />
+          <Search onClick={onClick} onEnter={onEnter} name={'searchable'} value={value} style={{ width:'100%',outline: 'none', padding: 5, fontSize: 18 }} />
         </Grid>
 
         <Grid xs={1} item={true}>
