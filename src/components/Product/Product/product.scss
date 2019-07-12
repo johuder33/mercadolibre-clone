@@ -1,0 +1,23 @@
+@import "../../../css/variables.scss";
+
+.containerProductResult {
+  padding: $light-spacing;
+  cursor: pointer;
+
+  .pictureProduct {
+    padding-right: $light-spacing;
+    width: 180px;
+    height: 180px;
+    border-radius: 4px;
+    margin: auto;
+    display: block;
+  }
+
+  .spacingShippingLeft {
+    padding-left: 10px;
+  }
+
+  .priceSpacing {
+    margin-bottom: 32px;
+  }
+}

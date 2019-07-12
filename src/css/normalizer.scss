@@ -1,0 +1,13 @@
+@import './variables.scss';
+
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: $silver-light;
+}
+
+.container {
+  max-width: $max-width-page;
+  width: 100%;
+  margin: auto;
+}

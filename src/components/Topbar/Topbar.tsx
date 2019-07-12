@@ -32,17 +32,14 @@ export const TopbarBase = ({ router }: any) => {
   return (
     <TopbarContainer>
       <Grid container={true} style={{ margin: 'auto', maxWidth: '1280px', width: '100%' }} alignItems={'center'} spacing={2}>
-        <Grid xs={2} item={true} container={true} justify={'flex-end'}>
+        <Grid xs={'auto'} item={true}>
           <Link href={'/'} shallow={true}>
             <img className={'logo'} src={'/static/logos/Logo_ML.png'} srcSet={'/static/logos/Logo_ML.png, /static/logos/Logo_ML@2x.png 2x'} style={{ width: '100%', maxWidth: 50 }} />
           </Link>
         </Grid>
 
-        <Grid xs={9} item={true}>
+        <Grid xs={true} item={true}>
           <Search onClick={SearchProducts} onEnter={SearchProducts} name={'searchable'} value={router.query.search} />
-        </Grid>
-
-        <Grid xs={1} item={true}>
         </Grid>
       </Grid>
     </TopbarContainer>

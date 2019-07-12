@@ -11,7 +11,6 @@ class Home extends React.Component {
     return (
       <div>
         <Head title="Home" />
-        <Topbar />
       </div>
     )
   }
