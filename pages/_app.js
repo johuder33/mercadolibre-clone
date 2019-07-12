@@ -1,6 +1,6 @@
 import React from 'react';
 import App, { Container } from 'next/app';
-import { AppStateProvider } from '../src/components/AppStateProvider';
+import { AppStateProvider, defaultState } from '../src/components/AppStateProvider';
 
 const getInitialState = (products) => {
   if (!products) { return; }
@@ -11,7 +11,7 @@ const getInitialState = (products) => {
     state.ids.push(id);
 
     return state;
-  }, { ids: [], byIds: {} });
+  }, defaultState);
 }
 
 class MercadoLibreApp extends App {

@@ -9,6 +9,5 @@ module.exports = withTypescript(withSass({
     }
 
     return config
-  },
-  cssModules: true
+  }
 }))

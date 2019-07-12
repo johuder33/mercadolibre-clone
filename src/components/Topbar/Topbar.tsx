@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useCallback, useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Link from 'next/link';
+import { withRouter } from 'next/router';
+import axios from 'axios';
+
 import './topbar.scss';
-// import { Search } from '../Search';
+import { AppContext } from '../../context';
+import { Search } from '../Search';
+import { ADD_PRODUCT, IS_LOADING } from '../../components/AppStateProvider/reducer/events';
+import { router as navigator } from '../../server/routes';
 
 const TopbarContainer = ({ children }: any) => (
   <div style={{ backgroundColor: '#FFE600', width: '100%', paddingTop: 5, paddingBottom: 5 }}>
@@ -9,33 +16,30 @@ const TopbarContainer = ({ children }: any) => (
   </div>
 )
 
-const Search: React.FunctionComponent<any> = ({ value: initialValue, onClick, onEnter }) => {
-  const [value, setValue] = useState(initialValue);
-  return (
-    <div style={{ width: '100%', position: 'relative', display: 'flex' }}>
-      <input style={{ color: '#333', fontSize: 18, padding: '7px', border: 'none', zIndex: 1, width: '100%', outline: 'none' }} value={value} onChange={({ target }) => setValue(target.value)} onKeyDown={(evt) => {
-        const { keyCode } = evt;
-        if (keyCode === 13) {
-          onEnter(value);
-        }
-      }} />
-      <button style={{ backgroundColor: '#EEE', border: 'none', outline: 'none', width: 46, right: 0, top: 0, zIndex: 2, cursor: 'pointer', bottom: 0, padding: 0 }} onClick={() => onClick(value)}>
-        <img src={'/static/icons/ic_search.png'} srcSet={'/static/icons/ic_search.png, /static/icons/ic_search@2x.png 2x'} />
-      </button>
-    </div>
-  );
-};
+export const TopbarBase = ({ router }: any) => {
+  const [, dispatch] = useContext(AppContext);
+  const SearchProducts = useCallback((query) => {
+    dispatch({ type: IS_LOADING, payload: { loading: true } });
+    navigator.Router.pushRoute('result', { search: query }, { shallow: true });
+    axios.get(`/api/items?q=${query}`)
+      .then(({ data }) => data)
+      .then(({ items }) => {
+        dispatch({ type: ADD_PRODUCT, payload: { items } });
+        dispatch({ type: IS_LOADING, payload: { loading: false } });
+      });
+  }, []);
 
-export const Topbar = ({ value, onClick, onEnter }: any) => {
   return (
     <TopbarContainer>
       <Grid container={true} style={{ margin: 'auto', maxWidth: '1280px', width: '100%' }} alignItems={'center'} spacing={2}>
         <Grid xs={2} item={true} container={true} justify={'flex-end'}>
-          <img src={'/static/logos/Logo_ML.png'} srcSet={'/static/logos/Logo_ML.png, /static/logos/Logo_ML@2x.png 2x'} style={{ width: '100%', maxWidth: 50 }} />
+          <Link href={'/'} shallow={true}>
+            <img className={'logo'} src={'/static/logos/Logo_ML.png'} srcSet={'/static/logos/Logo_ML.png, /static/logos/Logo_ML@2x.png 2x'} style={{ width: '100%', maxWidth: 50 }} />
+          </Link>
         </Grid>
 
         <Grid xs={9} item={true}>
-          <Search onClick={onClick} onEnter={onEnter} name={'searchable'} value={value} style={{ width:'100%',outline: 'none', padding: 5, fontSize: 18 }} />
+          <Search onClick={SearchProducts} onEnter={SearchProducts} name={'searchable'} value={router.query.search} />
         </Grid>
 
         <Grid xs={1} item={true}>
@@ -44,3 +48,5 @@ export const Topbar = ({ value, onClick, onEnter }: any) => {
     </TopbarContainer>
   );
 };
+
+export const Topbar = withRouter(TopbarBase);

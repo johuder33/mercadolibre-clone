@@ -3,7 +3,7 @@ import { Events, DEFAULT } from './events';
 const initialState = {
   byIds: {},
   ids: [],
-  lastSearch: ""
+  loading: false
 };
 
 const appReducer = (state = initialState, action: any) => {
