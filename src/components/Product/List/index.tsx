@@ -16,11 +16,9 @@ export const List = ({ onClick, itemComponent: Item }: any) => {
   }, [onClick]);
 
   return products.map((product: any, index: number) => (
-    <>
-      <Paper key={product.id} onClick={() => onClickItem(product)}>
-        <Item product={product} index={index} />
-      </Paper>
+    <Paper key={product.id} onClick={() => onClickItem(product)}>
+      <Item product={product} index={index} />
       {!isLast(index, products) && <Divider />}
-    </>
+    </Paper>
   ));
 }

@@ -1,0 +1,30 @@
+@import "../../css/variables.scss";
+
+.searchContainer {
+  width: 100%;
+  position: relative;
+  display: flex;
+
+  .searchInput {
+    color: $black;
+    font-size: 18px;
+    padding: 7px;
+    border: none;
+    z-index: 1;
+    width: 100%;
+    outline: none;
+  }
+
+  .searchButton {
+    background-color: $silver-light;
+    border: none;
+    outline: none;
+    width: 46px;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    cursor: pointer;
+    bottom: 0;
+    padding: 0;
+  }
+}
