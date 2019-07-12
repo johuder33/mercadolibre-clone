@@ -8,7 +8,7 @@ luego ejecutar
 
 `yarn dev`
 
-y luego puedes ingresar a `http://localhost:9000` para ver la app
+y luego puedes ingresar a `http://localhost:3000` para ver la app
 
 > Este clone es monolitico, por falta de tiempo no pude agregarlo con docker para separar los servicios, etc.
 
