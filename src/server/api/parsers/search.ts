@@ -1,42 +1,6 @@
 import { getAuthor } from '../utils';
-
-interface MercadoLibreResponse {
-  results: Result[];
-  filters: any[];
-}
-
-interface Result {
-  id: string;
-  title: string;
-  price: number;
-  currency_id: string;
-  thumbnail: string;
-  shipping: {
-    free_shipping: boolean;
-  }
-  condition: string;
-}
-
-const getNewResultBody = ({ id,
-  title,
-  price: amount,
-  currency_id: currency,
-  thumbnail: picture,
-  shipping: {
-    free_shipping
-  },
-  condition }: Result) => ({
-  id,
-  title,
-  price: {
-    amount,
-    currency,
-    decimals: 0
-  },
-  picture,
-  condition,
-  free_shipping
-})
+import { MercadoLibreResponse } from './types';
+import { getNewResultBody } from './helpers';
 
 export const getOwnStructureResponse = (response: MercadoLibreResponse) => {
   const { results, filters } = response;

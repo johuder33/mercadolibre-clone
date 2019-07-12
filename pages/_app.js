@@ -2,12 +2,31 @@ import React from 'react';
 import App, { Container } from 'next/app';
 import { AppStateProvider } from '../src/components/AppStateProvider';
 
+const getInitialState = (products) => {
+  if (!products) { return; }
+  return products.items.reduce((state, product) => {
+    const { id } = product;
+
+    state.byIds[id] = product;
+    state.ids.push(id);
+
+    return state;
+  }, { ids: [], byIds: {} });
+}
+
 class MercadoLibreApp extends App {
+  static async getInitialProps({ Component, ctx }) {
+    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+    const { products, ...props } = pageProps;
+    return { pageProps: props, initialState: getInitialState(products) };
+  }
+
   render() {
-    const { Component } = this.props;
+    const { Component, initialState } = this.props;
+
     return (
       <Container>
-        <AppStateProvider>
+        <AppStateProvider initialState={initialState}>
           <Component {...this.props.pageProps} />
         </AppStateProvider>
       </Container>
