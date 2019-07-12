@@ -1,0 +1,19 @@
+@import '../../css/variables.scss';
+
+.container-detail{
+  padding: $huge-spacing;
+
+  .conditionText {
+    margin-top: $huge-spacing;
+    margin-bottom: $light-spacing;
+  }
+  
+  .spacingBottomText {
+    margin-bottom: $huge-spacing;
+  }
+
+  .mainPhoto {
+    max-width: 680px;
+  }
+}
+

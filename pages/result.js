@@ -1,6 +1,5 @@
 import React, { useContext, useCallback } from 'react'
 import { AppContext } from '../src/context'
-import { Topbar } from '../src/components/Topbar'
 import { router } from '../src/server/routes'
 import Head from '../src/components/head';
 import { List, Product } from '../src/components/Product';
@@ -23,7 +22,6 @@ const Result = (props) => {
   return (
     <div>
       <Head title="Result" />
-      <Topbar />
       <ListWithLoading loading={loading} itemComponent={Product} onClick={showDetail} />
     </div>
   )
